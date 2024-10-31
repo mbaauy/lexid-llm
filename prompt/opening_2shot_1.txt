@@ -1,0 +1,217 @@
+Anda adalah pembuat knowledge graph. Anda akan diberikan entity regulatory dan teks, dari teks tersebut lakukan tindakan berikut:
+- identifikasi sebanyak mungkin relation di antara entity
+
+Tipe entity paling penting adalah:
+- lexid-s:LegalDocument, contoh: lexid:Permen_Agama_2019_17
+
+Relation paling penting adalah:
+- lexid-s:hasLegalBasis, yaitu peraturan apa yang menjadi dasar dari peraturan tersebut (ada di Mengingat), contoh: lexid:PP_2019_4 lexid-s:hasLegalBasis lexid:UU_1999_8 .
+- lexid-s:LegalBasisOf, yaitu invers dari lexid-s:hasLegalBasis, contoh: lexid:UU_1999_8 lexid-s:LegalBasisOf contoh: lexid:PP_2019_4 .
+
+JANGAN UBAH APAPUN YANG ADA PADA TEKS. GUNAKAN BAHASA INDONESIA SEPERTI YANG ADA PADA TEKS.
+JANGAN UBAH RELATION ATAU MENAMBAHKAN RELATION BARU.
+
+Contoh:
+###regulatory: lexid:PP_2019_4
+###prompt: 
+```
+Mengingat : 1. Pasal 5 ayat (2) Undang-Undang Dasar Negara Republik
+Indonesia Tahun 1945;
+  2. Undang-Undang Nomor 8 Tahun 1999 tentang
+Perlindungan Konsumen (Lembaran Negara Republik
+Indonesia Tahun 1999 Nomor 22, Tambahan Lembaran
+Negara Republik Indonesia Nomor 3821);
+```
+###output:
+lexid:PP_2019_4 lexid-s:hasLegalBasis lexid:UU_1999_8 .
+lexid:UU_1999_8 lexid-s:LegalBasisOf lexid:PP_2019_4 .
+lexid:UU_1999_8 rdf:type lexid-s:LegalDocument .
+lexid:UU_1999_8 rdfs:label "Undang-Undang Republik Indonesia Nomor 8 Tahun 1999"^^xsd:string .
+lexid:PP_2019_4 lexid-s:hasLegalBasis lexid:UUD_1945 .
+lexid:UUD_1945 lexid-s:LegalBasisOf lexid:PP_2019_4 .
+lexid:UUD_1945 rdf:type lexid-s:LegalDocument .
+lexid:UUD_1945 rdfs:label "Undang-Undang Dasar Negara Republik Indonesia  Tahun 1945"^^xsd:string .
+
+###regulatory: lexid:Perkot_Surabaya_2010_3
+###Teks: 
+```
+Mengingat     : 1. Pasal 18 ayat (6) Undang-Undang Dasar Negara Republik 
+Indonesia Tahun 1945; 
+2. Undang Undang Nomor 12 Tahun 1950 tentang Pembentukan 
+Daerah-Daerah Kabupaten dalam Lingkungan Propinsi Jawa 
+Timur (Berita Negara Republik Indonesia Tahun 1950 Nomor 
+19), sebagaimana telah diubah dengan Undang-Undang Nomor 
+2 Tahun 1965 (Lembaran Negara Republik Indonesia Tahun 
+1965 Nomor 19, Tambahan Lembaran Negara Republik 
+Indonesia Nomor 2753);  
+3. Undang-Undang Nomor 8 Tahun 1981 tentang Hukum Acara 
+Pidana (Lembaran Negara Republik Indonesia Tahun 1981 
+Nomor 76, Tambahan Lembaran Negara Republik Indonesia 
+Nomor 3209); 
+4. Undang-Undang Nomor 28 Tahun 1999 tentang 
+Penyelenggaraan Negara yang Bersih dan Bebas dari Korupsi, 
+Kolusi dan Nepotisme (Lembaran Negara Republik Indonesia 
+Tahun 1999 Nomor 75, Tambahan Lembaran Negara Republik 
+Indonesia Nomor 3851); 
+5. Undang-Undang Nomor 32 Tahun 2004 tentang Pemerintahan 
+Daerah (Lembaran Negara Republik Indonesia Tahun 2004 
+Nomor 125, Tambahan Lembaran Negara Republik Indonesia 
+Nomor 4437) sebagaimana telah diubah kedua kali dengan 
+Undang-Undang Nomor 12 Tahun 2008 (Lembaran Negara 
+Republik Indonesia Tahun 2008 Nomor 59, Tambahan 
+Lembaran Negara Republik Indonesia Nomor 4844);  
+ 2 
+6. Undang-Undang Nomor 17 Tahun 2008 tentang Pelayaran  
+(Lembaran Negara Republik Indonesia Tahun 2008 Nomor 64, 
+Tambahan Lembaran Negara Republik Indonesia Nomor 4849); 
+7. Undang-Undang Nomor 12 Tahun 2011 tentang Pembentukan 
+Peraturan Perundang-Undangan (Lembaran Negara Republik 
+Indonesia Tahun 2011 Nomor 22, Tambahan Lembaran Negara 
+Republik Indonesia Nomor 5234); 
+8. Peraturan Pemerintah Nomor 27 Tahun 1983 tentang 
+Pelaksanaan Kitab Undang-Undang Hukum Acara Pidana  
+(Lembaran Negara Republik Indonesia Tahun 1983 Nomor 36, 
+Tambahan Lembaran Negara Republik Indonesia Nomor 3258); 
+9. Peraturan Pemerintah Nomor 82 Tahun 1999 tentang 
+Angkutan di Perairan (Lembaran Negara Republik Indonesia 
+Tahun 1999 Nomor 140, Tambahan Lembaran Negara 
+Republik Indonesia Nomor 4578); 
+10. Peraturan Pemerintah Nomor 7 Tahun 2000 tentang 
+Kepelautan (Lembaran Negara Republik Indonesia Tahun 2000 
+Nomor 13, Tambahan Lembaran Negara Republik Indonesia 
+Nomor 3929); 
+11. Peraturan Pemerintah Nomor 69 Tahun 2001 tentang 
+Kepelabuhan (Lembaran Negara Republik Indonesia Tahun 
+2001 Nomor 127, Tambahan Lembaran Negara Republik 
+Indonesia Nomor 4145); 
+12. Peraturan Pemerintah Nomor 51 Tahun 2002 tentang 
+Perkapalan (Lembaran Negara Republik Indonesia Tahun 2002 
+Nomor 95, Tambahan Lembaran Negara Republik Indonesia 
+Nomor 4227); 
+13. Peraturan Pemerintah Nomor 79 Tahun 2005 tentang Pedoman 
+Pembinaan dan Pengawasan Penyelenggaraan Pemerintahan 
+Daerah (Lembaran Negara Republik Indonesia Tahun 2005 
+Nomor 165, Tambahan Lembaran Negara Republik Indonesia 
+Nomor 4593); 
+14. Peraturan Pemerintah Republik Indonesia Nomor 38 Tahun 
+2007 tentang Pembagian Urusan Pemerintahan antara 
+Pemerintah, Pemerintahan Daerah Provinsi dan Pemerintahan 
+Daerah Kabupaten/Kota (Lembaran Negara Republik 
+Indonesia Tahun 2007 Nomor 82, Tambahan Lembaran Negara 
+Republik Indonesia Nomor 4737); 
+15. Peraturan Presiden Nomor 1 tahun 2007 tentang Pengesahan, 
+Pengundangan dan Penyebarluasan Peraturan Perundang-
+undangan; 
+16. Peraturan Menteri Perhubungan Republik Indonesia Nomor 
+KM 6 Tahun 2005 tentang Pengukuran Kapal; 
+17. Peraturan Menteri Dalam Negeri Republik Indonesia Nomor 53 
+Tahun 2011 tentang Pembentukan Produk Hukum Daerah; 
+18. Peraturan Menteri Perhubungan Republik Indonesia Nomor PM 
+13 Tahun 2012 tentang Pendaftaran dan Kebangsaan Kapal; 
+19. Peraturan Menteri Perhubungan Republik Indonesia Nomor 
+KM 6 Tahun 2005 tentang Pengukuran Kapal; 
+ 3 
+20. Keputusan Menteri Perhubungan Republik Indonesia Nomor 
+KM 73 Tahun 2004 tentang Penyelenggaraan Angkutan 
+Sungai dan Danau, sebagaimana telah diubah dengan 
+Peraturan Menteri Perhubungan Republik Indonesia Nomor 
+KM 58 Tahun 2007; 
+21. Peraturan Daerah Kabupaten Banyuwangi Nomor 6 Tahun 
+2011 tentang Organisasi Perangkat Daerah Kabupaten 
+Banyuwangi (Lembaran Daerah Tahun 2011 Nomor 1/D). 
+Dengan Persetujuan Bersama 
+DEWAN PERWAKILAN RAKYAT DAERAH 
+KABUPATEN BANYUWANGI 
+dan 
+BUPATI BANYUWANGI
+```
+###output:
+lexid:Perkab_Banyuwangi_2012_5 lexid-s:hasLegalBasis lexid:UUD_1945 .
+lexid:UUD_1945 lexid-s:LegalBasisOf lexid:Perkab_Banyuwangi_2012_5 .
+lexid:UUD_1945 rdf:type lexid-s:LegalDocument .
+lexid:UUD_1945 rdfs:label "Undang-Undang Dasar Negara Republik Indonesia  Tahun 1945"^^xsd:string .
+lexid:Perkab_Banyuwangi_2012_5 lexid-s:hasLegalBasis lexid:UU_1950_12 .
+lexid:UU_1950_12 lexid-s:LegalBasisOf lexid:Perkab_Banyuwangi_2012_5 .
+lexid:UU_1950_12 rdf:type lexid-s:LegalDocument .
+lexid:UU_1950_12 rdfs:label "Undang-Undang Republik Indonesia Nomor 12 Tahun 1950"^^xsd:string .
+lexid:Perkab_Banyuwangi_2012_5 lexid-s:hasLegalBasis lexid:UU_1981_8 .
+lexid:UU_1981_8 lexid-s:LegalBasisOf lexid:Perkab_Banyuwangi_2012_5 .
+lexid:UU_1981_8 rdf:type lexid-s:LegalDocument .
+lexid:UU_1981_8 rdfs:label "Undang-Undang Republik Indonesia Nomor 8 Tahun 1981"^^xsd:string .
+lexid:Perkab_Banyuwangi_2012_5 lexid-s:hasLegalBasis lexid:PP_1999_82 .
+lexid:PP_1999_82 lexid-s:LegalBasisOf lexid:Perkab_Banyuwangi_2012_5 .
+lexid:PP_1999_82 rdf:type lexid-s:LegalDocument .
+lexid:PP_1999_82 rdfs:label "Peraturan Pemerintah Republik Indonesia Nomor 82 Tahun 1999"^^xsd:string .
+lexid:Perkab_Banyuwangi_2012_5 lexid-s:hasLegalBasis lexid:UU_2004_32 .
+lexid:UU_2004_32 lexid-s:LegalBasisOf lexid:Perkab_Banyuwangi_2012_5 .
+lexid:UU_2004_32 rdf:type lexid-s:LegalDocument .
+lexid:UU_2004_32 rdfs:label "Undang-Undang Republik Indonesia Nomor 32 Tahun 2004"^^xsd:string .
+lexid:Perkab_Banyuwangi_2012_5 lexid-s:hasLegalBasis lexid:UU_2008_17 .
+lexid:UU_2008_17 lexid-s:LegalBasisOf lexid:Perkab_Banyuwangi_2012_5 .
+lexid:UU_2008_17 rdf:type lexid-s:LegalDocument .
+lexid:UU_2008_17 rdfs:label "Undang-Undang Republik Indonesia Nomor 17 Tahun 2008"^^xsd:string .
+lexid:Perkab_Banyuwangi_2012_5 lexid-s:hasLegalBasis lexid:UU_2011_12 .
+lexid:UU_2011_12 lexid-s:LegalBasisOf lexid:Perkab_Banyuwangi_2012_5 .
+lexid:UU_2011_12 rdf:type lexid-s:LegalDocument .
+lexid:UU_2011_12 rdfs:label "Undang-Undang Republik Indonesia Nomor 12 Tahun 2011"^^xsd:string .
+lexid:Perkab_Banyuwangi_2012_5 lexid-s:hasLegalBasis lexid:PP_1983_27 .
+lexid:PP_1983_27 lexid-s:LegalBasisOf lexid:Perkab_Banyuwangi_2012_5 .
+lexid:PP_1983_27 rdf:type lexid-s:LegalDocument .
+lexid:PP_1983_27 rdfs:label "Peraturan Pemerintah Republik Indonesia Nomor 27 Tahun 1983"^^xsd:string .
+lexid:Perkab_Banyuwangi_2012_5 lexid-s:hasLegalBasis lexid:UU_1999_28 .
+lexid:UU_1999_28 lexid-s:LegalBasisOf lexid:Perkab_Banyuwangi_2012_5 .
+lexid:UU_1999_28 rdf:type lexid-s:LegalDocument .
+lexid:UU_1999_28 rdfs:label "Undang-Undang Republik Indonesia Nomor 28 Tahun 1999"^^xsd:string .
+lexid:Perkab_Banyuwangi_2012_5 lexid-s:hasLegalBasis lexid:PP_2000_7 .
+lexid:PP_2000_7 lexid-s:LegalBasisOf lexid:Perkab_Banyuwangi_2012_5 .
+lexid:PP_2000_7 rdf:type lexid-s:LegalDocument .
+lexid:PP_2000_7 rdfs:label "Peraturan Pemerintah Republik Indonesia Nomor 7 Tahun 2000"^^xsd:string .
+lexid:Perkab_Banyuwangi_2012_5 lexid-s:hasLegalBasis lexid:PP_2001_69 .
+lexid:PP_2001_69 lexid-s:LegalBasisOf lexid:Perkab_Banyuwangi_2012_5 .
+lexid:PP_2001_69 rdf:type lexid-s:LegalDocument .
+lexid:PP_2001_69 rdfs:label "Peraturan Pemerintah Republik Indonesia Nomor 69 Tahun 2001"^^xsd:string .
+lexid:Perkab_Banyuwangi_2012_5 lexid-s:hasLegalBasis lexid:PP_2002_51 .
+lexid:PP_2002_51 lexid-s:LegalBasisOf lexid:Perkab_Banyuwangi_2012_5 .
+lexid:PP_2002_51 rdf:type lexid-s:LegalDocument .
+lexid:PP_2002_51 rdfs:label "Peraturan Pemerintah Republik Indonesia Nomor 51 Tahun 2002"^^xsd:string .
+lexid:Perkab_Banyuwangi_2012_5 lexid-s:hasLegalBasis lexid:PP_2005_79 .
+lexid:PP_2005_79 lexid-s:LegalBasisOf lexid:Perkab_Banyuwangi_2012_5 .
+lexid:PP_2005_79 rdf:type lexid-s:LegalDocument .
+lexid:PP_2005_79 rdfs:label "Peraturan Pemerintah Republik Indonesia Nomor 79 Tahun 2005"^^xsd:string .
+lexid:Perkab_Banyuwangi_2012_5 lexid-s:hasLegalBasis lexid:PP_2007_38 .
+lexid:PP_2007_38 lexid-s:LegalBasisOf lexid:Perkab_Banyuwangi_2012_5 .
+lexid:PP_2007_38 rdf:type lexid-s:LegalDocument .
+lexid:PP_2007_38 rdfs:label "Peraturan Pemerintah Republik Indonesia Nomor 38 Tahun 2007"^^xsd:string .
+lexid:Perkab_Banyuwangi_2012_5 lexid-s:hasLegalBasis lexid:Perpres_2007_1 .
+lexid:Perpres_2007_1 lexid-s:LegalBasisOf lexid:Perkab_Banyuwangi_2012_5 .
+lexid:Perpres_2007_1 rdf:type lexid-s:LegalDocument .
+lexid:Perpres_2007_1 rdfs:label "Peraturan Presiden Republik Indonesia Nomor 1 Tahun 2007"^^xsd:string .
+lexid:Perkab_Banyuwangi_2012_5 lexid-s:hasLegalBasis lexid:Permen_Hub_2005_6 .
+lexid:Permen_Hub_2005_6 lexid-s:LegalBasisOf lexid:Perkab_Banyuwangi_2012_5 .
+lexid:Permen_Hub_2005_6 rdf:type lexid-s:LegalDocument .
+lexid:Permen_Hub_2005_6 rdfs:label "Peraturan Menteri Perhubungan Republik Indonesia Nomor 6 Tahun 2005"^^xsd:string .
+lexid:Perkab_Banyuwangi_2012_5 lexid-s:hasLegalBasis lexid:Permen_Dagri_2011_53 .
+lexid:Permen_Dagri_2011_53 lexid-s:LegalBasisOf lexid:Perkab_Banyuwangi_2012_5 .
+lexid:Permen_Dagri_2011_53 rdf:type lexid-s:LegalDocument .
+lexid:Permen_Dagri_2011_53 rdfs:label "Peraturan Menteri Dalam Negeri Republik Indonesia Nomor 53 Tahun 2011"^^xsd:string .
+lexid:Perkab_Banyuwangi_2012_5 lexid-s:hasLegalBasis lexid:Permen_Hub_2012_13 .
+lexid:Permen_Hub_2012_13 lexid-s:LegalBasisOf lexid:Perkab_Banyuwangi_2012_5 .
+lexid:Permen_Hub_2012_13 rdf:type lexid-s:LegalDocument .
+lexid:Permen_Hub_2012_13 rdfs:label "Peraturan Menteri Perhubungan Republik Indonesia Nomor 13 Tahun 2012"^^xsd:string .
+lexid:Perkab_Banyuwangi_2012_5 lexid-s:hasLegalBasis lexid:Permen_Hub_2004_73 .
+lexid:Permen_Hub_2004_73 lexid-s:LegalBasisOf lexid:Perkab_Banyuwangi_2012_5 .
+lexid:Permen_Hub_2004_73 rdf:type lexid-s:LegalDocument .
+lexid:Permen_Hub_2004_73 rdfs:label "Peraturan Menteri Perhubungan Republik Indonesia Nomor 73 Tahun 2004"^^xsd:string .
+lexid:Perkab_Banyuwangi_2012_5 lexid-s:hasLegalBasis lexid:Perkab_Banyuwangi_2011_6 .
+lexid:Perkab_Banyuwangi_2011_6 lexid-s:LegalBasisOf lexid:Perkab_Banyuwangi_2012_5 .
+lexid:Perkab_Banyuwangi_2011_6 rdf:type lexid-s:LegalDocument .
+lexid:Perkab_Banyuwangi_2011_6 rdfs:label "Peraturan Daerah Kabupaten Banyuwangi Nomor 6 Tahun 2011"^^xsd:string .
+
+PASTIKAN OUTPUT HANYA DALAM BENTUK TRIPLE. DAN KELUARKAN HANYA BAGIAN ###output.
+
+###regulatory: lexid:{regulatory}
+###Teks: 
+```
+{text}
+```
+###output:

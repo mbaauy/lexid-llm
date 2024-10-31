@@ -1,0 +1,166 @@
+You are a helpful assistant. Lanjutkan extraction dari code yang diberikan. Hanya tuliskan python code saja tanpa ada tulisan lain.
+
+from typing import List
+class Rel:
+    def __init__(self, name: str):
+        self.name = name
+class hasContent(Rel):
+    # Bab atau Pasal dari peraturan dimana peraturan tersebut sebagai parent langsung
+    def __init__(self, name: str):
+        super.__init__(name=name)
+class hasPart(Rel):
+    # Bagian atau Paragraf atau Pasal dari Bab dimana bab tersebut sebagai parent langsung
+    def __init__(self, name: str):
+        super.__init__(name=name)
+class hasName(Rel):
+    # Keterangan untuk Bab atau Bagian atau Paragraf
+    def __init__(self, name: str):
+        super.__init__(name=name)
+
+class Entity:
+    def __init__(self, name: str):
+        self.name = name
+class LegalDocument(Entity):
+    def __init__(self, name: str):
+        super.__init__(name=name)
+class Chapter(Entity):
+    # Bab
+    def __init__(self, name: str):
+        super.__init__(name=name)
+class Part(Entity):
+    # Bagian
+    def __init__(self, name: str):
+        super.__init__(name=name)
+class Paragraph(Entity):
+    # Paragraf
+    def __init__(self, name: str):
+        super.__init__(name=name)
+class Article(Entity):
+    # Pasal
+    def __init__(self, name: str):
+        super.__init__(name=name)
+class String(Entity):
+    def __init__(self, name: str):
+        super.__init__(name=name)
+
+class Triple:
+    def __init__(self, head: Entity, relation: Rel, tail: Entity):
+        self.head = head
+        self.relation = relation
+        self.tail = tail
+class Extract:
+    def __init__(self, triples: List[Triple] = []):
+        self.triples = triples
+        
+###Regulatory: PP_2019_7
+###Teks
+```
+BAB I
+KETENTUAN UMUM 
+Pasal 1
+BAB II
+PENYELENGGARAAN KEPALANGMERAHAN 
+Bagian Kesatu
+Umum 
+Pasal 2
+Bagian Kedua
+Penyelenggaraan Kepalangmerahan Dalam Masa Damai 
+Paragraf 1
+Umum 
+Pasal 3
+Paragraf 2
+Penanggulangan Bencana 
+Pasal 4
+Pasal 5
+Paragraf 3
+Penanganan Pengungsian 
+Pasal 10
+Pasal 11
+BAB III
+PENGGUNAAN TANDA PENGENAL PADA SAAT TERJADI KERUSUHAN 
+ATAU GANGGUAN KEAMANAN 
+Pasal 40
+Pasal 41
+Pasal 42
+```
+###Output
+extract = Extract([Triple(LegalDocument('PP_2019_7'), Rel('hasContent'), Chapter('BAB I')),
+                   Triple(Chapter('BAB I'), Rel('hasName'), String('KETENTUAN UMUM')),
+                   Triple(Chapter('BAB I'), Rel('hasPart'), Article('Pasal 1')),
+                   Triple(LegalDocument('PP_2019_7'), Rel('hasContent'), Chapter('BAB II')),
+                   Triple(Chapter('BAB II'), Rel('hasName'), String('PENYELENGGARAAN KEPALANGMERAHAN')),
+                   Triple(Chapter('BAB II'), Rel('hasPart'), Part('Bagian Kesatu BAB II')),
+                   Triple(Part('Bagian Kesatu BAB II'), Rel('hasName'), String('Umum')),
+                   Triple(Part('Bagian Kesatu BAB II'), Rel('hasPart'), Article('Pasal 2')),
+                   Triple(Chapter('BAB II'), Rel('hasPart'), Part('Bagian Kedua BAB II')),
+                   Triple(Part('Bagian Kedua BAB II'), Rel('hasName'), String('Penyelenggaraan Kepalangmerahan Dalam Masa Damai')),
+                   Triple(Part('Bagian Kedua BAB II'), Rel('hasPart'), Paragraph('Paragraf 1 Bagian Kedua BAB II')),
+                   Triple(Paragraph('Paragraf 1 Bagian Kedua BAB II'), Rel('hasName'), String('Umum')),
+                   Triple(Paragraph('Paragraf 1 Bagian Kedua BAB II'), Rel('hasPart'), Article('Pasal 3')),
+                   Triple(Part('Bagian Kedua BAB II'), Rel('hasPart'), Paragraph('Paragraf 2 Bagian Kedua BAB II')),
+                   Triple(Paragraph('Paragraf 2 Bagian Kedua BAB II'), Rel('hasName'), String('Penanggulangan Bencana')),
+                   Triple(Paragraph('Paragraf 2 Bagian Kedua BAB II'), Rel('hasPart'), Article('Pasal 4')),
+                   Triple(Paragraph('Paragraf 2 Bagian Kedua BAB II'), Rel('hasPart'), Article('Pasal 5')),
+                   Triple(Part('Bagian Kedua BAB II'), Rel('hasPart'), Paragraph('Paragraf 3 Bagian Kedua BAB II')),
+                   Triple(Paragraph('Paragraf 3 Bagian Kedua BAB II'), Rel('hasName'), String('Penanganan Pengungsian')),
+                   Triple(Paragraph('Paragraf 3 Bagian Kedua BAB II'), Rel('hasPart'), Article('Pasal 10')),
+                   Triple(Paragraph('Paragraf 3 Bagian Kedua BAB II'), Rel('hasPart'), Article('Pasal 11')),
+                   Triple(LegalDocument('PP_2019_7'), Rel('hasContent'), Chapter('BAB III')),
+                   Triple(Chapter('BAB III'), Rel('hasName'), String('PENGGUNAAN TANDA PENGENAL PADA SAAT TERJADI KERUSUHAN ATAU GANGGUAN KEAMANAN')),
+                   Triple(Chapter('BAB III'), Rel('hasPart'), Article('Pasal 40')),
+                   Triple(Chapter('BAB III'), Rel('hasPart'), Article('Pasal 41')),
+                   Triple(Chapter('BAB III'), Rel('hasPart'), Article('Pasal 42')),])
+                   
+###regulatory: lexid:Permen_Agama_2016_21
+###Teks:
+```
+BAB I
+KEDUDUKAN, TUGAS, DAN FUNGSI
+Pasal 1
+Pasal 2
+Pasal 3
+BAB II
+ORGANISASI
+Pasal 4
+Bagian Kesatu
+Organ Pengelola
+Pasal 5
+Paragraf 1
+Rektor dan Wakil Rektor
+Pasal 6
+Pasal 7
+Paragraf 2
+Fakultas
+Pasal 8
+Pasal 9
+```
+###Output
+extract = Extract([Triple(LegalDocument('Permen_Agama_2016_21'), Rel('hasContent'), Chapter('BAB I')),
+                   Triple(Chapter('BAB I'), Rel('hasName'), String('KEDUDUKAN, TUGAS, DAN FUNGSI')),
+                   Triple(Chapter('BAB I'), Rel('hasPart'), Article('Pasal 1')),
+                   Triple(Chapter('BAB I'), Rel('hasPart'), Article('Pasal 2')),
+                   Triple(Chapter('BAB I'), Rel('hasPart'), Article('Pasal 3')),
+                   Triple(LegalDocument('Permen_Agama_2016_21'), Rel('hasContent'), Chapter('BAB II')),
+                   Triple(Chapter('BAB II'), Rel('hasName'), String('ORGANISASI')),
+                   Triple(Chapter('BAB II'), Rel('hasPart'), Article('Pasal 4')),
+                   Triple(Chapter('BAB II'), Rel('hasPart'), Part('Bagian Kesatu BAB II')),
+                   Triple(Part('Bagian Kesatu BAB II'), Rel('hasName'), String('Organ Pengelola')),
+                   Triple(Part('Bagian Kesatu BAB II'), Rel('hasPart'), Article('Pasal 5')),
+                   Triple(Part('Bagian Kesatu BAB II'), Rel('hasPart'), Paragraph('Paragraf 1')),
+                   Triple(Paragraph('Paragraf 1 Bagian Kesatu BAB II'), Rel('hasName'), String('Rektor dan Wakil Rektor')),
+                   Triple(Paragraph('Paragraf 1 Bagian Kesatu BAB II'), Rel('hasPart'), Article('Pasal 6')),
+                   Triple(Paragraph('Paragraf 1 Bagian Kesatu BAB II'), Rel('hasPart'), Article('Pasal 7')),
+                   Triple(Part('Bagian Kesatu BAB II'), Rel('hasPart'), Paragraph('Paragraf 2 Bagian Kesatu BAB II')),
+                   Triple(Paragraph('Paragraf 2 Bagian Kesatu BAB II'), Rel('hasName'), String('Fakultas')),
+                   Triple(Paragraph('Paragraf 2 Bagian Kesatu BAB II'), Rel('hasPart'), Article('Pasal 8')),
+                   Triple(Paragraph('Paragraf 2 Bagian Kesatu BAB II'), Rel('hasPart'), Article('Pasal 9')),])
+
+IDENTIFIKASI SEBANYAK MUNGKIN TRIPLE. JANGAN MELAKUKAN EKSTRAKSI SELAIN RELATION YANG DITENTUKAN.
+JANGAN UBAH RELATION ATAU MENAMBAHKAN RELATION BARU.
+
+###Regulatory: {regulatory}
+###Teks
+```
+{text}
+```
+###Output

@@ -1,0 +1,131 @@
+Anda adalah pembuat knowledge graph. Anda akan diberikan entity regulatory dan teks, dari teks tersebut lakukan tindakan berikut:
+- identifikasi sebanyak mungkin relation di antara entity
+- keluarkan daftar dalam format triple turtle ENTITY 1 RELATION 1 OBJECT 1/ENTITY 2 .
+
+Tipe entity paling penting adalah:
+- lexid-s:LegalDocument, contoh: lexid:Permen_Agama_2019_17
+- lexid-s:Person, contoh: lexid:Person_Joko_Widodo
+- lexid-s:Position, contoh: lexid:Position_Menteri_Agama_Republik_Indonesia
+- lexid-s:City, contoh: lexid:City_Depok
+
+Relation paling penting adalah:
+- lexid-s:hasPromulgationPlace, yaitu dimana pengundangan peraturan tersebut ditempatkan, contoh: lexid:PP_2019_4 lexid-s:hasPromulgationPlace lexid:Lembaran_Negara.
+- lexid-s:hasEnactionDate, yaitu kapan peraturan tersebut ditetapkan, contoh: lexid:PP_2019_4 lexid-s:hasEnactionDate "2019-01-28"^^xsd:date.
+- lexid-s:hasEnactionLocation, yaitu dimana peraturan tersebut ditetapkan, contoh: lexid:PP_2019_4 lexid-s:hasEnactionLocation lexid:City_Jakarta.
+- lexid-s:hasEnactionOfficial, yaitu siapa saja nama orang yang menetapkan peraturan tersebut (bisa lebih dari satu), contoh: lexid:PP_2019_4 lexid-s:hasEnactionOfficial lexid:Person_Joko_Widodo.
+- lexid-s:hasEnactionOffice, yaitu apa saja jabatan dari orang yang menetapkan peraturan tersebut, contoh: lexid:PP_2019_4 lexid-s:hasEnactionOffice lexid:Position_Presiden_Republik_Indonesia.
+- lexid-s:hasPromulgationDate, yaitu kapan peraturan tersebut diudangkan, contoh: lexid:PP_2019_4 lexid-s:hasPromulgationDate "2019-01-28"^^xsd:date.
+- lexid-s:hasPromulgationLocation, yaitu dimana peraturan tersebut diundangkan, contoh: lexid:PP_2019_4 lexid-s:hasPromulgationLocation lexid:City_Jakarta.
+- lexid-s:hasPromulgationOfficial, yaitu siapa saja nama orang yang mengundangkan peraturan tersebut (bisa lebih dari satu), contoh: lexid:PP_2019_4 lexid-s:hasPromulgationOfficial lexid:Person_Yasonna_H_Laolly.
+- lexid-s:hasPromulgationOffice, yaitu apa saja jabatan dari orang yang mengundangkan peraturan tersebut, contoh: lexid:PP_2019_4 lexid-s:hasPromulgationOffice lexid:Position_Menteri_Hukum_Dan_Hak_Asasi_Manusia_Republik_Indonesia.
+
+JANGAN UBAH APAPUN YANG ADA PADA TEKS. GUNAKAN BAHASA INDONESIA SEPERTI YANG ADA PADA TEKS.
+JANGAN UBAH RELATION ATAU MENAMBAHKAN RELATION BARU.
+
+Contoh:
+###regulatory: lexid:PP_2019_4
+###Teks: 
+```
+Peraturan Pemerintah ini mulai berlaku pada tanggal 
+diundangkan. 
+www.peraturan.go.id
+2019, No.12 
+-9- 
+Agar setiap orang mengetahuinya, memerintahkan 
+pengundangan Peraturan Pemerintah ini dengan 
+penempatannya dalam Lembaran Negara Republik 
+Indonesia. 
+Ditetapkan di Jakarta 
+pada tanggal 23 Januari 2019  
+PRESIDEN REPUBLIK INDONESIA, 
+ttd 
+JOKO WIDODO 
+Diundangkan di Jakarta 
+pada tanggal 28 Januari 2019 
+MENTERI HUKUM DAN HAK ASASI MANUSIA  
+REPUBLIK INDONESIA,  
+ttd 
+YASONNA H. LAOLLY 
+www.peraturan.go.id
+```
+###output:
+lexid:PP_2019_4 lexid-s:hasPromulgationPlace lexid:Lembaran_Negara .
+lexid:PP_2019_4 lexid-s:hasEnactionDate "2019-01-23"^^xsd:date .
+lexid:PP_2019_4 lexid-s:hasEnactionLocation lexid:City_Jakarta .
+lexid:City_Jakarta rdf:type lexid-s:City .
+lexid:City_Jakarta rdfs:label "Jakarta"^^xsd:string .
+lexid:PP_2019_4 lexid-s:hasEnactionOfficial lexid:Person_Joko_Widodo .
+lexid:Person_Joko_Widodo rdfs:label "Joko Widodo"^^xsd:string .
+lexid:Person_Joko_Widodo rdf:type lexid-s:Person .
+lexid:PP_2019_4 lexid-s:hasEnactionOffice lexid:Position_Presiden_Republik_Indonesia .
+lexid:Position_Presiden_Republik_Indonesia rdfs:label "Presiden Republik Indonesia"^^xsd:string .
+lexid:Position_Presiden_Republik_Indonesia rdf:type lexid-s:Position .
+lexid:PP_2019_4 lexid-s:hasPromulgationDate "2019-01-28"^^xsd:date .
+lexid:PP_2019_4 lexid-s:hasPromulgationLocation lexid:City_Jakarta .
+lexid:City_Jakarta rdf:type lexid-s:City .
+lexid:City_Jakarta rdfs:label "Jakarta"^^xsd:string .
+lexid:PP_2019_4 lexid-s:hasPromulgationOfficial lexid:Person_Yasonna_H_Laolly .
+lexid:Person_Yasonna_H_Laolly rdfs:label "Yasonna H Laolly"^^xsd:string .
+lexid:Person_Yasonna_H_Laolly rdf:type lexid-s:Person .
+lexid:PP_2019_4 lexid-s:hasPromulgationOffice lexid:Position_Menteri_Hukum_Dan_Hak_Asasi_Manusia_Republik_Indonesia .
+lexid:Position_Menteri_Hukum_Dan_Hak_Asasi_Manusia_Republik_Indonesia rdfs:label "Menteri Hukum Dan Hak Asasi Manusia Republik Indonesia"^^xsd:string .
+lexid:Position_Menteri_Hukum_Dan_Hak_Asasi_Manusia_Republik_Indonesia rdf:type lexid-s:Position .
+
+###regulatory: lexid:Perkot_Surabaya_2010_3
+###Teks: 
+```
+Pasal 10 
+Peraturan Daerah ini mulai berlaku pada tanggal diundangkan. 
+Agar setiap orang mengetahuinya, memerintahkan pengundangan Peraturan Daerah ini 
+dengan penempatannya dalam Lembaran Daerah Kota Surabaya. 
+Ditetapkan di Surabaya 
+pada tanggal 28 September 2010 
+WALIKOTA SURABAYA, 
+ttd 
+TRI RISMAHARINI 
+Diundangkan di Surabaya 
+pada tanggal 28 September 2010 
+SEKRETARIS DAERAH KOTA SURABAYA, 
+ttd 
+SUKAMTO HADI 
+LEMBARAN DAERAH KOTA SURABAYA TAHUN 2010 NOMOR 3 
+Salinan sesuai dengan aslinya 
+a.n. SEKRETARIS DAERAH 
+Asisten Pemerintahan 
+u.b 
+Kepala Bagian Hukum, 
+MOH. SUHARTO WARDOYO, SH. M. Hum. 
+Penata Tingkat I 
+NIP. 19720831 199703 1 004
+```
+###output:
+lexid:Perkot_Surabaya_2010_3 lexid-s:hasPromulgationPlace lexid:Lembaran_Daerah_Kota_Surabaya .
+lexid:Perkot_Surabaya_2010_3 lexid-s:hasEnactionDate "2010-09-28"^^xsd:date .
+lexid:Perkot_Surabaya_2010_3 lexid-s:hasEnactionLocation lexid:City_Surabaya .
+lexid:City_Surabaya rdf:type lexid-s:City .
+lexid:City_Surabaya rdfs:label "Surabaya"^^xsd:string .
+lexid:Perkot_Surabaya_2010_3 lexid-s:hasEnactionOfficial lexid:Person_Tri_Rismaharini .
+lexid:Person_Tri_Rismaharini rdfs:label "Tri Rismaharini"^^xsd:string .
+lexid:Person_Tri_Rismaharini rdf:type lexid-s:Person .
+lexid:Perkot_Surabaya_2010_3 lexid-s:hasEnactionOffice lexid:Position_Walikota_Surabaya .
+lexid:Position_Walikota_Surabaya rdfs:label "Walikota Surabaya"^^xsd:string .
+lexid:Position_Walikota_Surabaya rdf:type lexid-s:Position .
+lexid:Perkot_Surabaya_2010_3 lexid-s:hasPromulgationDate ""2010-09-28""^^xsd:date .
+lexid:Perkot_Surabaya_2010_3 lexid-s:hasPromulgationLocation lexid:City_Surabaya .
+lexid:City_Surabaya rdf:type lexid-s:City .
+lexid:City_Surabaya rdfs:label "Surabaya"^^xsd:string .
+lexid:Perkot_Surabaya_2010_3 lexid-s:hasPromulgationOfficial lexid:Person_Sukamto_Hadi .
+lexid:Person_Sukamto_Hadi rdfs:label "Sukamto Hadi"^^xsd:string .
+lexid:Person_Sukamto_Hadi rdf:type lexid-s:Person .
+lexid:Perkot_Surabaya_2010_3 lexid-s:hasPromulgationOffice lexid:Position_Sekretaris_Daerah_Kota_Surabaya .
+lexid:Position_Sekretaris_Daerah_Kota_Surabaya rdfs:label "Sekretaris Daerah Kota Surabaya"^^xsd:string .
+lexid:Position_Sekretaris_Daerah_Kota_Surabaya rdf:type lexid-s:Position .
+
+PASTIKAN OUTPUT HANYA DALAM BENTUK TRIPLE.
+
+###regulatory: lexid:{regulatory}
+###Teks: 
+```
+{text}
+```
+###output:

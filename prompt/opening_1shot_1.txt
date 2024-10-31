@@ -1,0 +1,42 @@
+Anda adalah pembuat knowledge graph. Anda akan diberikan entity regulatory dan teks, dari teks tersebut lakukan tindakan berikut:
+- identifikasi sebanyak mungkin relation di antara entity
+
+Tipe entity paling penting adalah:
+- lexid-s:LegalDocument, contoh: lexid:Permen_Agama_2019_17
+
+Relation paling penting adalah:
+- lexid-s:hasLegalBasis, yaitu peraturan apa yang menjadi dasar dari peraturan tersebut (ada di Mengingat), contoh: lexid:PP_2019_4 lexid-s:hasLegalBasis lexid:UU_1999_8 .
+- lexid-s:LegalBasisOf, yaitu invers dari lexid-s:hasLegalBasis, contoh: lexid:UU_1999_8 lexid-s:LegalBasisOf contoh: lexid:PP_2019_4 .
+
+JANGAN UBAH APAPUN YANG ADA PADA TEKS. GUNAKAN BAHASA INDONESIA SEPERTI YANG ADA PADA TEKS.
+JANGAN UBAH RELATION ATAU MENAMBAHKAN RELATION BARU.
+
+Contoh:
+###regulatory: lexid:PP_2019_4
+###prompt: 
+```
+Mengingat : 1. Pasal 5 ayat (2) Undang-Undang Dasar Negara Republik
+Indonesia Tahun 1945;
+  2. Undang-Undang Nomor 8 Tahun 1999 tentang
+Perlindungan Konsumen (Lembaran Negara Republik
+Indonesia Tahun 1999 Nomor 22, Tambahan Lembaran
+Negara Republik Indonesia Nomor 3821);
+```
+###output:
+lexid:PP_2019_4 lexid-s:hasLegalBasis lexid:UU_1999_8 .
+lexid:UU_1999_8 lexid-s:LegalBasisOf lexid:PP_2019_4 .
+lexid:UU_1999_8 rdf:type lexid-s:LegalDocument .
+lexid:UU_1999_8 rdfs:label "Undang-Undang Republik Indonesia Nomor 8 Tahun 1999"^^xsd:string .
+lexid:PP_2019_4 lexid-s:hasLegalBasis lexid:UUD_1945 .
+lexid:UUD_1945 lexid-s:LegalBasisOf lexid:PP_2019_4 .
+lexid:UUD_1945 rdf:type lexid-s:LegalDocument .
+lexid:UUD_1945 rdfs:label "Undang-Undang Dasar Negara Republik Indonesia  Tahun 1945"^^xsd:string .
+
+PASTIKAN OUTPUT HANYA DALAM BENTUK TRIPLE. DAN KELUARKAN HANYA BAGIAN ###output.
+
+###regulatory: lexid:{regulatory}
+###Teks: 
+```
+{text}
+```
+###output:

@@ -1,0 +1,104 @@
+You are a helpful assistant. Lanjutkan extraction dari code yang diberikan. Hanya tuliskan python code saja tanpa ada tulisan lain.
+
+from typing import List
+class Rel:
+    def __init__(self, name: str):
+        self.name = name
+class considers(Rel):
+    def __init__(self, name: str):
+        super.__init__(name=name)
+class hasDictum(Rel):
+    def __init__(self, name: str):
+        super.__init__(name=name)
+class hasCreator(Rel):
+    def __init__(self, name: str):
+        super.__init__(name=name)
+class regulationNumber(Rel):
+    def __init__(self, name: str):
+        super.__init__(name=name)
+class regulationYear(Rel):
+    def __init__(self, name: str):
+        super.__init__(name=name) 
+class hasName(Rel):
+    def __init__(self, name: str):
+        super.__init__(name=name)
+class label(Rel):
+    def __init__(self, name: str):
+        super.__init__(name=name)
+
+class Entity:
+    def __init__(self, name: str):
+        self.name = name
+class Position(Entity):
+    def __init__(self, name: str):
+        super.__init__(name=name)
+class String(Entity):
+    def __init__(self, name: str, type: str):
+        super.__init__(name=name)
+class Int(Entity):
+    def __init__(self, name: str, type: str):
+        super.__init__(name=name)
+class LegalDocument(Entity):
+    def __init__(self, name: str):
+        super.__init__(name=name)
+
+class Triple:
+    def __init__(self, head: Entity, relation: Rel, tail: Entity):
+        self.head = head
+        self.relation = relation
+        self.tail = tail
+class Extract:
+    def __init__(self, triples: List[Triple] = []):
+        self.triples = triples
+
+###Regulatory: PP_2019_4
+###Teks
+```
+LEMBARAN NEGARA
+REPUBLIK INDONESIA
+No.12, 2019 KESRA. Badan Perlindungan. Konsumen Nasional.
+(Penjelasan dalam Tambahan Lembaran Negara
+Republik Indonesia Nomor 6306)
+PERATURAN PEMERINTAH REPUBLIK INDONESIA
+NOMOR 4 TAHUN 2019
+TENTANG
+BADAN PERLINDUNGAN KONSUMEN NASIONAL
+DENGAN RAHMAT TUHAN YANG MAHA ESA
+PRESIDEN REPUBLIK INDONESIA,
+Menimbang : a. bahwa untuk mendukung pelaksanaan tugas dan
+wewenang Badan Perlindungan Konsumen Nasional,
+perlu mengatur kembali Peraturan Pemerintah Nomor
+57 Tahun 2001 tentang Badan Perlindungan Konsumen
+Nasional;
+  b. bahwa berdasarkan pertimbangan sebagaimana
+dimaksud dalam huruf a, perlu menetapkan Peraturan
+Pemerintah tentang Badan Perlindungan Konsumen
+Nasional;
+MEMUTUSKAN:
+Menetapkan : PERATURAN PEMERINTAH TENTANG BADAN
+PERLINDUNGAN KONSUMEN NASIONAL.
+www.peraturan.go.id
+2019, No.12 -2-
+BAB I
+KETENTUAN UMUM
+```
+###Output
+extract = Extract([Triple(LegalDocument('PP_2019_4'), Rel('hasCreator'), Position('PRESIDEN REPUBLIK INDONESIA')),
+                   Triple(LegalDocument('PP_2019_4'), Rel('considers'), String('bahwa untuk mendukung pelaksanaan tugas dan wewenang Badan Perlindungan Konsumen Nasional, perlu mengatur kembali Peraturan Pemerintah Nomor 57 Tahun 2001 tentang Badan Perlindungan Konsumen Nasional')),
+                   Triple(LegalDocument('PP_2019_4'), Rel('considers'), String('bahwa berdasarkan pertimbangan sebagaimana dimaksud dalam huruf a, perlu menetapkan Peraturan Pemerintah tentang Badan Perlindungan Konsumen Nasional')),
+                   Triple(LegalDocument('PP_2019_4'), Rel('hasDictum'), String('Menetapkan : PERATURAN PEMERINTAH TENTANG BADAN PERLINDUNGAN KONSUMEN NASIONAL.')),
+                   Triple(LegalDocument('PP_2019_4'), Rel('regulationNumber'), String('4')),
+                   Triple(LegalDocument('PP_2019_4'), Rel('regulationYear'), Int('2019')),
+                   Triple(LegalDocument('PP_2019_4'), Rel('hasName'), String('BADAN PERLINDUNGAN KONSUMEN NASIONAL')),
+                   Triple(LegalDocument('PP_2019_4'), Rel('label'), String('Peraturan Pemerintah Republik Indonesia Nomor 4 Tahun 2019')),])
+
+IDENTIFIKASI SEBANYAK MUNGKIN TRIPLE. JANGAN MELAKUKAN EKSTRAKSI SELAIN RELATION YANG DITENTUKAN.
+JANGAN UBAH RELATION ATAU MENAMBAHKAN RELATION BARU.
+
+###Regulatory: {regulatory}
+###Teks
+```
+{text}
+```
+###Output
+

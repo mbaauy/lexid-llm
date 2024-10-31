@@ -1,0 +1,121 @@
+You are a helpful assistant. Lanjutkan extraction dari code yang diberikan. Hanya tuliskan python code saja tanpa ada tulisan lain.
+
+from typing import List
+
+class Rel:
+    def __init__(self, name: str):
+        self.name = name
+class hasEnactionDate(Rel):
+    # Kapan peraturan ditetapkan
+    def __init__(self, name: str):
+        super.__init__(name=name)
+class hasEnactionLocation(Rel):
+    # Dimana peraturan ditetapkan
+    def __init__(self, name: str):
+        super.__init__(name=name)
+class hasEnactionOfficial(Rel):
+    # Siapa nama orang yang menetapkan peraturan
+    def __init__(self, name: str):
+        super.__init__(name=name)
+class hasEnactionOffice(Rel):
+    # Apa jabatan dari orang yang menetapkan peraturan
+    def __init__(self, name: str):
+        super.__init__(name=name)
+class hasPromulgationDate(Rel):
+    # Kapan peraturan diundangkan
+    def __init__(self, name: str):
+        super.__init__(name=name)
+class hasPromulgationLocation(Rel):
+    # Dimana peraturan diundangkan
+    def __init__(self, name: str):
+        super.__init__(name=name)
+class hasPromulgationOfficial(Rel):
+    # Siapa nama orang yang mengundangkan peraturan
+    def __init__(self, name: str):
+        super.__init__(name=name)
+class hasPromulgationOffice(Rel):
+    # Apa jabatan dari orang yang mengundangkan peraturan
+    def __init__(self, name: str):
+        super.__init__(name=name)
+class hasPromulgationPlace(Rel):
+    # Dimana pengundangan peraturan ditempatkan
+    def __init__(self, name: str):
+        super.__init__(name=name)
+
+class Entity:
+    def __init__(self, name: str):
+        self.name = name
+class LegalDocument(Entity):
+    def __init__(self, name: str):
+        super.__init__(name=name)
+class Person(Entity):
+    def __init__(self, name: str):
+        super.__init__(name=name)
+class Date(Entity):
+    def __init__(self, name: str):
+        super.__init__(name=name)
+class City(Entity):
+    def __init__(self, name: str):
+        super.__init__(name=name)
+class Positon(Entity):
+    def __init__(self, name: str):
+        super.__init__(name=name)
+class Place(Entity):
+    def __init__(self, name: str):
+        super.__init__(name=name)
+        
+class Triple:
+    def __init__(self, head:Entity, relation: Rel, tail: Entity):
+        self.head = head
+        self.relation = relation
+        self.tail = tail
+class Extract:
+    def __init__(self, triples: List[Triple] = []):
+        self.triples = triples
+
+###Regulatory: PP_2019_4
+###Teks
+```
+Pasal 18 
+Peraturan Pemerintah ini mulai berlaku pada tanggal 
+diundangkan. 
+www.peraturan.go.id
+2019, No.12 
+-9- 
+Agar setiap orang mengetahuinya, memerintahkan 
+pengundangan Peraturan Pemerintah ini dengan 
+penempatannya dalam Lembaran Negara Republik 
+Indonesia. 
+Ditetapkan di Jakarta 
+pada tanggal 23 Januari 2019  
+PRESIDEN REPUBLIK INDONESIA, 
+ttd 
+JOKO WIDODO 
+Diundangkan di Jakarta 
+pada tanggal 28 Januari 2019 
+MENTERI HUKUM DAN HAK ASASI MANUSIA  
+REPUBLIK INDONESIA,  
+ttd 
+YASONNA H. LAOLLY 
+www.peraturan.go.id
+```
+###Output
+extract = Extract([Triple(LegalDocument('PP_2019_4'), Rel('hasPromulgationPlace'), Place('Lembaran Negara')),
+                   Triple(LegalDocument('PP_2019_4'), Rel('hasEnactionDate'), Date('2019-01-23')),
+                   Triple(LegalDocument('PP_2019_4'), Rel('hasEnactionLocation'), City('Jakarta')),
+                   Triple(LegalDocument('PP_2019_4'), Rel('hasEnactionOfficial'), Person('Joko Widodo')),
+                   Triple(LegalDocument('PP_2019_4'), Rel('hasEnactionOffice'), Position('Presiden Republik Indonesia')),
+                   Triple(LegalDocument('PP_2019_4'), Rel('hasPromulgationDate'), Date('2019-01-28')),
+                   Triple(LegalDocument('PP_2019_4'), Rel('hasPromulgationLocation'), City('Jakarta')),
+                   Triple(LegalDocument('PP_2019_4'), Rel('hasPromulgationOfficial'), Person('Yasonna H Laolly')),
+                   Triple(LegalDocument('PP_2019_4'), Rel('hasPromulgationOffice'), Position('Menteri Hukum Dan Hak Asasi Manusia Republik Indonesia')),])
+                   
+IDENTIFIKASI SEBANYAK MUNGKIN TRIPLE. JANGAN MELAKUKAN EKSTRAKSI SELAIN RELATION YANG DITENTUKAN.
+JANGAN UBAH RELATION ATAU MENAMBAHKAN RELATION BARU.
+
+###Regulatory: {regulatory}
+###Teks
+```
+{text}
+```
+###Output:

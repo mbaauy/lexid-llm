@@ -1,0 +1,113 @@
+Anda adalah pembuat knowledge graph. Anda akan diberikan entity regulatory dan teks, dari teks tersebut lakukan tindakan berikut:
+- identifikasi sebanyak mungkin relation di antara entity
+
+Tipe entity paling penting adalah:
+- lexid-s:LegalDocument, contoh: lexid:Permen_Agama_2019_17
+- lexid-s:Position, contoh: lexid:Position_Menteri_Agama_Republik_Indonesia
+
+Relation paling penting adalah:
+- lexid-s:regulationNumber, yaitu nomor dari peraturan tersebut, contoh: lexid:PP_2019_4 lexid-s:regulationNumber "12"^^xsd:string .
+- lexid-s:regulationYear, yaitu tahun dari peraturan tersebut, contoh: lexid:PP_2019_4 lexid-s:regulationNumber "2019"^^xsd:string .
+- lexid-s:name, yaitu tentang apa peraturan tersebut, contoh: lexid:PP_2019_4 lexid-s:name "BADAN PERLINDUNGAN KONSUMEN NASIONAL"^^xsd:string .
+- lexid-s:hasCreator, yaitu siapa yang membuat peraturan tersebut, contoh: lexid:PP_2019_4 lexid-s:hasCreator lexid:Position_Presiden_Republik_Indonesia .
+- lexid-s:considers, yaitu apa pertimbangan dari peraturan tersebut (ada di Menimbang), contoh: lexid:PP_2019_4 lexid-s:considers "bahwa berdasarkan pertimbangan sebagaimana dimaksud dalam huruf a, perlu menetapkan Peraturan Pemerintah tentang Badan Perlindungan Konsumen Nasional"^^xsd:string .
+- lexid-s:hasDictum, yaitu pernyataan tentang peraturan (setelah Menimbang), contoh: lexid:PP_2019_4 lexid-s:hasDictum "Menetapkan : PERATURAN PEMERINTAH TENTANG BADAN PERLINDUNGAN KONSUMEN NASIONAL."^^xsd:string .
+
+JANGAN UBAH APAPUN YANG ADA PADA TEKS. GUNAKAN BAHASA INDONESIA SEPERTI YANG ADA PADA TEKS.
+JANGAN UBAH RELATION ATAU MENAMBAHKAN RELATION BARU. 
+
+Contoh:
+###regulatory: lexid:PP_2019_4
+###prompt: 
+```
+LEMBARAN NEGARA
+REPUBLIK INDONESIA
+No.12, 2019 KESRA. Badan Perlindungan. Konsumen Nasional.
+(Penjelasan dalam Tambahan Lembaran Negara
+Republik Indonesia Nomor 6306)
+PERATURAN PEMERINTAH REPUBLIK INDONESIA
+NOMOR 4 TAHUN 2019
+TENTANG
+BADAN PERLINDUNGAN KONSUMEN NASIONAL
+DENGAN RAHMAT TUHAN YANG MAHA ESA
+PRESIDEN REPUBLIK INDONESIA,
+Menimbang : a. bahwa untuk mendukung pelaksanaan tugas dan
+wewenang Badan Perlindungan Konsumen Nasional,
+perlu mengatur kembali Peraturan Pemerintah Nomor
+57 Tahun 2001 tentang Badan Perlindungan Konsumen
+Nasional;
+  b. bahwa berdasarkan pertimbangan sebagaimana
+dimaksud dalam huruf a, perlu menetapkan Peraturan
+Pemerintah tentang Badan Perlindungan Konsumen
+Nasional;
+MEMUTUSKAN:
+Menetapkan : PERATURAN PEMERINTAH TENTANG BADAN
+PERLINDUNGAN KONSUMEN NASIONAL.
+www.peraturan.go.id
+2019, No.12 -2-
+BAB I
+KETENTUAN UMUM
+```
+###output:
+lexid:PP_2019_4 lexid-s:regulationNumber "4"^^xsd:string .
+lexid:PP_2019_4 lexid-s:regulationYear "2019"^^xsd:int .
+lexid:PP_2019_4 lexid-s:name "BADAN PERLINDUNGAN KONSUMEN NASIONAL"^^xsd:string .
+lexid:PP_2019_4 lexid-s:hasCreator lexid:Position_Presiden_Republik_Indonesia .
+lexid:Position_Presiden_Republik_Indonesia rdfs:label "Presiden Republik Indonesia"^^xsd:string .
+lexid:Position_Presiden_Republik_Indonesia rdf:type lexid-s:Position .
+lexid:PP_2019_4 lexid-s:considers "bahwa untuk mendukung pelaksanaan tugas dan wewenang Badan Perlindungan Konsumen Nasional, perlu mengatur kembali Peraturan Pemerintah Nomor 57 Tahun 2001 tentang Badan Perlindungan Konsumen Nasional"^^xsd:string .
+lexid:PP_2019_4 lexid-s:considers "bahwa berdasarkan pertimbangan sebagaimana dimaksud dalam huruf a, perlu menetapkan Peraturan Pemerintah tentang Badan Perlindungan Konsumen Nasional"^^xsd:string .
+lexid:PP_2019_4 lexid-s:hasDictum "Menetapkan : PERATURAN PEMERINTAH TENTANG BADAN PERLINDUNGAN KONSUMEN NASIONAL."^^xsd:string .
+lexid:PP_2019_4 rdfs:label "Peraturan Pemerintah Republik Indonesia Nomor 4 Tahun 2019"^^xsd:string .
+lexid:PP_2019_4 rdf:type lexid-s:LegalDocument .
+
+###regulatory: lexid:Perkot_Surabaya_2010_3
+###Teks: 
+```
+BUPATI BANYUWANGI 
+BUPATI BANYUWANGI 
+PERATURAN DAERAH KABUPATEN BANYUWANGI 
+NOMOR  5  TAHUN 2012 
+TENTANG 
+PENERBITAN PAS KECIL  
+KAPAL KURANG DARI 7 GROSSE TONNAGE 
+DENGAN RAHMAT TUHAN YANG MAHA ESA 
+BUPATI BANYUWANGI, 
+Menimbang : a.  bahwa dalam rangka mewujudkan keamanan dan ketertiban 
+lalu lintas di perairan laut, perlu mengatur tentang identitas 
+dan tanda kebangsaan kapal kurang dari 7 GT (grosse 
+tonnage); 
+b. bahwa pengukuran, pemeriksaan, dan Penerbitan Pas Kecil 
+merupakan kewenangan daerah kabupaten; 
+c. bahwa berdasarkan pertimbangan sebagaimana dimaksud 
+pada huruf a, dan huruf b, perlu membentuk Peraturan 
+Daerah tentang Penerbitan Pas Kecil Kapal kurang dari 7 
+Grosse Tonnage. 
+MEMUTUSKAN: 
+Menetapkan : PERATURAN DAERAH TENTANG PENERBITAN PAS KECIL 
+KAPAL KURANG DARI 7 GROSSE TONNAGE. 
+BAB  I 
+KETENTUAN UMUM
+```
+###output:
+lexid:Perkab_Banyuwangi_2012_5 lexid-s:regulationYear "2012"^^xsd:int .
+lexid:Perkab_Banyuwangi_2012_5 lexid-s:regulationNumber "5"^^xsd:string .
+lexid:Perkab_Banyuwangi_2012_5 lexid-s:name "Penerbitan Pas Kecil Kapal Kurang Dari 7 Grosse Tonnage"^^xsd:string .
+lexid:Perkab_Banyuwangi_2012_5 lexid-s:hasCreator lexid:Position_Bupati_Banyuwangi .
+lexid:Position_Bupati_Banyuwangi rdfs:label "Bupati Banyuwangi"^^xsd:string .
+lexid:Position_Bupati_Banyuwangi rdf:type lexid-s:Position .
+lexid:Perkab_Banyuwangi_2012_5 lexid-s:considers "bahwa dalam rangka mewujudkan keamanan dan ketertiban lalu lintas di perairan laut, perlu mengatur tentang identitas dan tanda kebangsaan kapal kurang dari 7 GT (grosse tonnage)"^^xsd:string .
+lexid:Perkab_Banyuwangi_2012_5 lexid-s:considers "bahwa pengukuran, pemeriksaan, dan Penerbitan Pas Kecil merupakan kewenangan daerah kabupaten"^^xsd:string .
+lexid:Perkab_Banyuwangi_2012_5 lexid-s:considers "bahwa berdasarkan pertimbangan sebagaimana dimaksud pada huruf a, dan huruf b, perlu membentuk Peraturan Daerah tentang Penerbitan Pas Kecil Kapal kurang dari 7 Grosse Tonnage."^^xsd:string .
+lexid:Perkab_Banyuwangi_2012_5 lexid-s:hasDictum "Menetapkan : PERATURAN DAERAH TENTANG PENERBITAN PAS KECIL KAPAL KURANG DARI 7 GROSSE TONNAGE."^^xsd:string .
+lexid:Perkab_Banyuwangi_2012_5 rdfs:label "Peraturan Daerah Kabupaten Banyuwangi Nomor 5 Tahun 2012"^^xsd:string .
+lexid:Perkab_Banyuwangi_2012_5 rdf:type lexid-s:LegalDocument .
+
+PASTIKAN OUTPUT HANYA DALAM BENTUK TRIPLE. DAN KELUARKAN HANYA BAGIAN ###output.
+
+###regulatory: lexid:{regulatory}
+###Teks: 
+```
+{text}
+```
+###output:

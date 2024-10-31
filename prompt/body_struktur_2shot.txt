@@ -1,0 +1,138 @@
+Anda adalah pembuat knowledge graph. Anda akan diberikan entity regulatory dan teks, dari teks tersebut lakukan tindakan berikut:
+- identifikasi sebanyak mungkin relation di antara entity
+
+Tipe entity paling penting adalah:
+- lexid-s:LegalDocument
+  contoh: lexid:Permen_Agama_2019_17
+- lexid-s:Chapter, yaitu Bab
+  contoh: 'Bab I' = lexid:PP_2019_7_Chapter_I
+- lexid-s:Part, yaitu Bagian
+  contoh: 'Bab II Bagian Kesatu Umum' = lexid:PP_2019_7_Part_II_KESATU
+- lexid-s:Paragraph, yaitu Paragraf
+  contoh: 'Bab II Bagian Kesatu Umum Paragraf 1 Penanggulangan Bencana' = lexid:PP_2019_7_Paragraph_II_KEDUA_1
+- lexid-s:Article, yaitu Pasal
+  contoh: 'Pasal 3' = lexid:PP_2019_7_Article_3
+
+Relation paling penting adalah:
+- lexid-s:hasContent, yaitu Bab atau Pasal dari peraturan dimana peraturan tersebut sebagai parent langsung, contoh: lexid:PP_2019_7 lexid-s:hasContent lexid:PP_2019_7_Chapter_I .
+- lexid-s:hasPart, yaitu Bagian atau Paragraf atau Pasal dari Bab dimana bab tersebut sebagai parent langsung, contoh: lexid:PP_2019_7_Chapter_III lexid-s:hasPart lexid:PP_2019_7_Article_42 .
+
+JANGAN UBAH APAPUN YANG ADA PADA TEKS. GUNAKAN BAHASA INDONESIA SEPERTI YANG ADA PADA TEKS.
+JANGAN UBAH RELATION ATAU MENAMBAHKAN RELATION BARU.
+
+Contoh:
+###regulatory: lexid:PP_2019_7
+###Teks: 
+```
+BAB I
+KETENTUAN UMUM 
+Pasal 1
+BAB II
+PENYELENGGARAAN KEPALANGMERAHAN 
+Bagian Kesatu
+Umum 
+Pasal 2
+Bagian Kedua
+Penyelenggaraan Kepalangmerahan Dalam Masa Damai 
+Paragraf 1
+Umum 
+Pasal 3
+Paragraf 2
+Penanggulangan Bencana 
+Pasal 4
+Pasal 5
+Paragraf 3
+Penanganan Pengungsian 
+Pasal 10
+Pasal 11
+BAB III
+PENGGUNAAN TANDA PENGENAL PADA SAAT TERJADI KERUSUHAN 
+ATAU GANGGUAN KEAMANAN 
+Pasal 40
+Pasal 41
+Pasal 42
+```
+###output:
+lexid:PP_2019_7 lexid-s:hasContent lexid:PP_2019_7_Chapter_I .
+lexid:PP_2019_7_Chapter_I lexid-s:name "KETENTUAN UMUM"^^xsd:string .
+lexid:PP_2019_7 lexid-s:hasContent lexid:PP_2019_7_Chapter_II .
+lexid:PP_2019_7_Chapter_II lexid-s:name "PENYELENGGARAAN KEPALANGMERAHAN"^^xsd:string .
+lexid:PP_2019_7 lexid-s:hasContent lexid:PP_2019_7_Chapter_III .
+lexid:PP_2019_7_Chapter_III lexid-s:name "PENGGUNAAN TANDA PENGENAL PADA SAAT TERJADI KERUSUHAN ATAU GANGGUAN KEAMANAN"^^xsd:string .
+
+lexid:PP_2019_7_Chapter_I lexid-s:hasPart lexid:PP_2019_7_Article_1 .
+lexid:PP_2019_7_Chapter_II lexid-s:hasPart lexid:PP_2019_7_Part_II_KESATU .
+lexid:PP_2019_7_Part_II_KESATU lexid-s:name "Umum"^^xsd:string .
+lexid:PP_2019_7_Part_II_KESATU lexid:hasPart lexid:PP_2019_7_Article_2 .
+lexid:PP_2019_7_Chapter_II lexid-s:hasPart lexid:PP_2019_7_Part_II_KEDUA .
+lexid:PP_2019_7_Part_II_KEDUA lexid-s:name "Penyelenggaraan Kepalangmerahan Dalam Masa Damai"^^xsd:string .
+lexid:PP_2019_7_Part_II_KEDUA lexid:hasPart lexid:PP_2019_7_Paragraph_II_KEDUA_1 .
+lexid:PP_2019_7_Paragraph_II_KEDUA_1 lexid-s:name "Umum"^^xsd:string .
+lexid:PP_2019_7_Paragraph_II_KEDUA_1 lexid:hasPart lexid:PP_2019_7_Article_3 .
+lexid:PP_2019_7_Part_II_KEDUA lexid:hasPart lexid:PP_2019_7_Paragraph_II_KEDUA_2 .
+lexid:PP_2019_7_Paragraph_II_KEDUA_2 lexid-s:name "Penanggulangan Bencana"^^xsd:string .
+lexid:PP_2019_7_Paragraph_II_KEDUA_2 lexid:hasPart lexid:PP_2019_7_Article_4 .
+lexid:PP_2019_7_Paragraph_II_KEDUA_2 lexid:hasPart lexid:PP_2019_7_Article_5 .
+lexid:PP_2019_7_Part_II_KEDUA lexid:hasPart lexid:PP_2019_7_Paragraph_II_KEDUA_3 .
+lexid:PP_2019_7_Paragraph_II_KEDUA_3 lexid-s:name "Penanggulangan Pengungsian"^^xsd:string .
+lexid:PP_2019_7_Paragraph_II_KEDUA_3 lexid:hasPart lexid:PP_2019_7_Article_10 .
+lexid:PP_2019_7_Paragraph_II_KEDUA_3 lexid:hasPart lexid:PP_2019_7_Article_11 .
+lexid:PP_2019_7_Chapter_III lexid-s:hasPart lexid:PP_2019_7_Article_40 .
+lexid:PP_2019_7_Chapter_III lexid-s:hasPart lexid:PP_2019_7_Article_41 .
+lexid:PP_2019_7_Chapter_III lexid-s:hasPart lexid:PP_2019_7_Article_42 .
+
+
+###regulatory: lexid:Permen_Agama_2016_21
+###Teks: 
+```
+BAB I
+KEDUDUKAN, TUGAS, DAN FUNGSI
+Pasal 1
+Pasal 2
+Pasal 3
+BAB II
+ORGANISASI
+Pasal 4
+Bagian Kesatu
+Organ Pengelola
+Pasal 5
+Paragraf 1
+Rektor dan Wakil Rektor
+Pasal 6
+Pasal 7
+Paragraf 2
+Fakultas
+Pasal 8
+Pasal 9
+```
+###output:
+lexid:Permen_Agama_2016_21 lexid-s:hasContent lexid:Permen_Agama_2016_21_Chapter_I .
+lexid:Permen_Agama_2016_21_Chapter_I lexid-s:name "KEDUDUKAN, TUGAS, DAN FUNGSI"^^xsd:string .
+lexid:Permen_Agama_2016_21 lexid-s:hasContent lexid:Permen_Agama_2016_21_Chapter_II .
+lexid:Permen_Agama_2016_21_Chapter_II lexid-s:name "ORGANISASI"^^xsd:string .
+
+lexid:Permen_Agama_2016_21_Chapter_I lexid-s:hasPart lexid:Permen_Agama_2016_21_Article_1 .
+lexid:Permen_Agama_2016_21_Chapter_I lexid-s:hasPart lexid:Permen_Agama_2016_21_Article_2 .
+lexid:Permen_Agama_2016_21_Chapter_I lexid-s:hasPart lexid:Permen_Agama_2016_21_Article_3 .
+lexid:Permen_Agama_2016_21_Chapter_II lexid-s:hasPart lexid:Permen_Agama_2016_21_Article_4 .
+lexid:Permen_Agama_2016_21_Chapter_II lexid-s:hasPart lexid:Permen_Agama_2016_21_Part_II_KESATU .
+lexid:Permen_Agama_2016_21_Part_II_KESATU lexid-s:name "Organ Pengelola"^^xsd:string .
+lexid:Permen_Agama_2016_21_Part_II_KESATU lexid-s:hasPart lexid:Permen_Agama_2016_21_Article_5 .
+lexid:Permen_Agama_2016_21_Part_II_KESATU lexid-s:hasPart lexid:Permen_Agama_2016_21_Paragraph_II_KESATU_1 .
+lexid:Permen_Agama_2016_21_Paragraph_II_KESATU_1 lexid-s:name "Rektor dan Wakil Rektor"^^xsd:string .
+lexid:Permen_Agama_2016_21_Paragraph_II_KESATU_1 lexid-s:hasPart lexid:Permen_Agama_2016_21_Article_6 .
+lexid:Permen_Agama_2016_21_Paragraph_II_KESATU_1 lexid-s:hasPart lexid:Permen_Agama_2016_21_Article_7 .
+lexid:Permen_Agama_2016_21_Part_II_KESATU lexid-s:hasPart lexid:Permen_Agama_2016_21_Paragraph_II_KESATU_2 .
+lexid:Permen_Agama_2016_21_Paragraph_II_KESATU_2 lexid-s:name "FaKultas"^^xsd:string .
+lexid:Permen_Agama_2016_21_Paragraph_II_KESATU_2 lexid-s:hasPart lexid:Permen_Agama_2016_21_Article_8 .
+lexid:Permen_Agama_2016_21_Paragraph_II_KESATU_2 lexid-s:hasPart lexid:Permen_Agama_2016_21_Article_9 .
+
+
+PASTIKAN OUTPUT HANYA DALAM BENTUK TRIPLE. DAN KELUARKAN HANYA BAGIAN ###output.
+
+###regulatory: lexid:{regulatory}
+###Teks: 
+```
+{text}
+```
+###output:
